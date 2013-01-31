@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title Tracka.se
+    %script{:src => '/js/jquery.min.js', :type => "text/javascript"}
+    %script{:src => '/js/bootstrap.min.js'}
+    %script{:src => '/js/base.js'}
+    %link{:href => '/css/bootstrap.min.css', :rel => 'stylesheet'}
+  %html
+    .container
+      .span4
+        %h2 Sök paket:
+        %input#kollinr{:type => 'text', :placeholder => 'Kollinummer'}
+        %h3 Tidigare sökningar:
+        %ul#oldsearches.nav.nav-tabs.nav-stacked
+      #details.span6.hide
+        %h4
+          Kollinummer:
+          %span.kollinr
+        %table#events.table
+          %thead
+            %tr
+              %th Datum
+              %th Plats
+              %th Händelse
+          %tbody
