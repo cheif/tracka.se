@@ -46,7 +46,7 @@ class Scraper
             #Add additional details and sort events
             return {
                 :id => kolliid,
-                :sender => result.search("span#ctl00_m_g_830dbf6e_6765_4420_94b5_78a952f9b7bd_ctl00_ctl20_lblSenderValue").first.content,
+                :sender => result.search("span#ctl00_m_g_830dbf6e_6765_4420_94b5_78a952f9b7bd_ctl00_ctl20_lblSenderValue").first.inner_html,
                 :service => 'Posten',
                 :events => events.sort_by{|eln| eln[:date]}.reverse!
             }
@@ -69,8 +69,9 @@ class Scraper
             object = JSON.parse(json)
             #map events onto ruby object
             events = object['scans'].map do |event|
+                date = DateTime.strptime("#{event['scanDate']} #{event['scanTime']}", "%b %d, %Y %H:%M %p")
                 {
-                    :date => event['scanDate'],
+                    :date => date.strftime("%Y-%m-%d %H:%M"),
                     :location => event['scanLocation'],
                     :message => event['scanComments']
                 }

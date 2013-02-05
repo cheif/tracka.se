@@ -10,17 +10,27 @@
     .container
       .span4
         %h2 Sök paket:
-        %input#kollinr{:type => 'text', :placeholder => 'Kollinummer'}
+        %input#kollinr{:type => 'text', :style => 'width: 95%', :placeholder => 'Kollinummer'}
+        #loading.progress.progress-striped.active.hide
+          .bar{:style => 'width: 100%'}
         %h3 Tidigare sökningar:
         %ul#oldsearches.nav.nav-tabs.nav-stacked
-      #details.span6.hide
-        %h4
-          Kollinummer:
-          %span.kollinr
-        %table#events.table
-          %thead
-            %tr
-              %th Datum
-              %th Plats
-              %th Händelse
-          %tbody
+      #right.span6
+        #details.hide
+          %h3 
+            Paket:
+            %span#kolliid
+          .row
+            .span3
+              Avsändare:
+              %address#sender
+            .span3
+              Mottagare:
+              %address#reciever
+          %table#events.table
+            %thead
+              %tr
+                %th Datum
+                %th Plats
+                %th Händelse
+            %tbody

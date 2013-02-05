@@ -16,5 +16,6 @@ get '/' do
 end
 
 get '/tracking/:kollinr' do
-    return Scraper.All(params[:kollinr]).to_json
+    result = Scraper.All(params[:kollinr]).to_json
+    return result
 end
