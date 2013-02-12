@@ -1,36 +1,23 @@
 !!!
-%html
+%html{:'ng-app' => 'tracking'}
   %head
     %title Tracka.se
     %script{:src => '/js/jquery.min.js', :type => "text/javascript"}
+    %script{:src => 'http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js'}
+    %script{:src => 'http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular-resource.min.js'}
     %script{:src => '/js/bootstrap.min.js'}
     %script{:src => '/js/base.js'}
     %link{:href => '/css/bootstrap.min.css', :rel => 'stylesheet'}
   %html
     .container
-      .span4
+      .span4{:'ng-controller' => 'SearchController'}
         %h2 Sök paket:
-        %input#kollinr{:type => 'text', :style => 'width: 95%', :placeholder => 'Kollinummer'}
-        #loading.progress.progress-striped.active.hide
-          .bar{:style => 'width: 100%'}
+        %form{:'ng-submit' => "addSearch()"}
+          %input{:type => 'text', :'ng-model' => 'kollinr', :style => 'width: 95%', :placeholder => 'Kollinummer'}
+          %input.btn-primary{:type => 'submit', :value => 'Search'}
         %h3 Tidigare sökningar:
         %ul#oldsearches.nav.nav-tabs.nav-stacked
-      #right.span6
-        #details.hide
-          %h3 
-            Paket:
-            %span#kolliid
-          .row
-            .span3
-              Avsändare:
-              %address#sender
-            .span3
-              Mottagare:
-              %address#reciever
-          %table#events.table
-            %thead
-              %tr
-                %th Datum
-                %th Plats
-                %th Händelse
-            %tbody
+          %li{:'ng-repeat' => 'search in searches'}
+            %a{:href => "#/detail/{{search}}"}
+              {{search}}
+      .span6{:'ng-view' => ''}
