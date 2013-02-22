@@ -26,10 +26,10 @@
           %h2 Sök paket:
           .row
             %form{:'ng-submit' => "addSearch()"}
-            .span5
-              %input{:type => 'text', :'ng-model' => 'kollinr', :style => 'width: 95%', :placeholder => 'Kollinummer'}
-            .span1
-              %input.btn-primary{:type => 'submit', :value => 'Search'}
+              .span5
+                %input{:type => 'text', :'ng-model' => 'kollinr', :style => 'width: 95%', :placeholder => 'Kollinummer'}
+              .span1
+                %input.btn-primary{:type => 'submit', :value => 'Search'}
           %h3 Tidigare sökningar:
           %ul#oldsearches.nav.nav-tabs.nav-stacked
             %li{:'ng-repeat' => 'search in searches'}
