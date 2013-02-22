@@ -4,10 +4,13 @@ app = angular.module('tracking', []).
             when('/detail/:id', {controller: 'DetailController', templateUrl: 'detail'}).
             otherwise({redirectTo: '/'})
     ]).service('searches', ($rootScope) ->
+        if not localStorage.searches
+            #Initialize the localstorage
+            localStorage.searches = JSON.stringify([])
         searches = JSON.parse(localStorage.searches)
         return {
             addSearch: (search) ->
-                if searches.filter((eln)-> return eln.id == search.id).empty?
+                if searches.filter((eln)-> return eln.id == search.id).length == 0
                     searches.push {id: search.id, service: search.service}
                     localStorage.searches = JSON.stringify(searches)
             getSearches: ->
