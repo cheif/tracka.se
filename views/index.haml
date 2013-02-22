@@ -8,16 +8,44 @@
     %script{:src => '/js/bootstrap.min.js'}
     %script{:src => '/js/base.js'}
     %link{:href => '/css/bootstrap.min.css', :rel => 'stylesheet'}
+    %link{:href => '/css/style.css', :rel => 'stylesheet'}
+    %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+    %link{:href => '/css/bootstrap-responsive.min.css', :rel => 'stylesheet'}
   %html
     .container
-      .span4{:'ng-controller' => 'SearchController'}
-        %h2 Sök paket:
-        %form{:'ng-submit' => "addSearch()"}
-          %input{:type => 'text', :'ng-model' => 'kollinr', :style => 'width: 95%', :placeholder => 'Kollinummer'}
-          %input.btn-primary{:type => 'submit', :value => 'Search'}
-        %h3 Tidigare sökningar:
-        %ul#oldsearches.nav.nav-tabs.nav-stacked
-          %li{:'ng-repeat' => 'search in searches'}
-            %a{:href => "#/detail/{{search}}"}
-              {{search}}
-      .span6{:'ng-view' => ''}
+      .navbar
+        .navbar-inner
+          %a.brand{:href => '/'}
+            Tracka.se
+          %ul.nav.pull-right
+            %li
+              %a{:href => 'http://github.com/cheif/tracka.se'}
+                Project @ GitHub
+      .row
+        .span6{:'ng-controller' => 'SearchController'}
+          %h2 Sök paket:
+          .row
+            %form{:'ng-submit' => "addSearch()"}
+            .span5
+              %input{:type => 'text', :'ng-model' => 'kollinr', :style => 'width: 95%', :placeholder => 'Kollinummer'}
+            .span1
+              %input.btn-primary{:type => 'submit', :value => 'Search'}
+          %h3 Tidigare sökningar:
+          %ul#oldsearches.nav.nav-tabs.nav-stacked
+            %li{:'ng-repeat' => 'search in searches'}
+              %a{:href => "#/detail/{{search.id}}", :class => "{{search.service | lowercase}}"}
+                {{search.id}}
+        .span6{:'ng-view' => ''}
+    .navbar.navbar-fixed-bottom
+      .container
+        Designed and built by
+        %a{:href => 'http://twitter.com/kjellout'}
+          @kjellout
+        %br
+        Using
+        %a{:href => 'http://twitter.github.com/bootstrap/index.html'}
+          Bootstrap
+        and
+        %a{:href => 'http://angularjs.org/'}
+          AngularJS
+

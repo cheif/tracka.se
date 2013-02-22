@@ -3,21 +3,29 @@ app = angular.module('tracking', []).
         $routeProvider.
             when('/detail/:id', {controller: 'DetailController', templateUrl: 'detail'}).
             otherwise({redirectTo: '/'})
-    ])
+    ]).service('searches', ($rootScope) ->
+        searches = JSON.parse(localStorage.searches)
+        return {
+            addSearch: (search) ->
+                if searches.filter((eln)-> return eln.id == search.id).empty?
+                    searches.push {id: search.id, service: search.service}
+                    localStorage.searches = JSON.stringify(searches)
+            getSearches: ->
+                return searches
+        }
+    )
 
-app.controller 'SearchController', ($scope, $location) ->
-    $scope.searches = JSON.parse(localStorage.searches)
-
+app.controller 'SearchController', ($scope, $location, searches) ->
+    $scope.searches = searches.getSearches()
+    
     $scope.addSearch = () ->
         $location.path('/detail/' + $scope.kollinr)
-        if not $scope.kollinr in $scope.searches
-            $scope.searches.push $scope.kollinr
-            localStorage.searches = JSON.stringify($scope.searches)
 
     
-app.controller 'DetailController', ($scope, $routeParams, $http) ->
-    $http.get('/tracking/' + $routeParams.id).success((data) =>
-        $scope.detailData = data
+app.controller 'DetailController', ($scope, $routeParams, $http, searches) ->
+    $http.get('/tracking/' + $routeParams.id).success((search) =>
+        $scope.detailData = search
+        searches.addSearch(search)
     )
     
 angular.bootstrap document, ['tracking']

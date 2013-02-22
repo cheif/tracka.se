@@ -1,6 +1,7 @@
 #details{:'ng-show' => 'detailData'}
   %h3 
-    Paket: {{detailData.id}}
+    %span{:class => "{{detailData.service | lowercase}}"}
+      Paket: {{detailData.id}}
   .row
     .span3
       Avsändare: {{detailData.sender}}
