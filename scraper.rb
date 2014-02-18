@@ -43,9 +43,14 @@ class Scraper
                 }
             end
             #Add additional details and sort events
+            sender_str = result.search("span#ctl00_m_g_830dbf6e_6765_4420_94b5_78a952f9b7bd_ctl00_ctl20_lblSenderValue").first.inner_html
+            sender_components = sender_str.split('<br>')
             return {
                 :id => kolliid,
-                :sender => result.search("span#ctl00_m_g_830dbf6e_6765_4420_94b5_78a952f9b7bd_ctl00_ctl20_lblSenderValue").first.inner_html,
+                :sender => {
+                    :name => sender_components[0],
+                    :address_string => sender_components.join('\n'),
+                },
                 :service => 'Posten',
                 :events => events.sort_by{|eln| eln[:date]}.reverse!
             }
@@ -77,9 +82,14 @@ class Scraper
             end
             #Add additional details and sort events
             #TODO change sender field, test with better fedex no.
+            sender_str = object['origLocation']
+            sender_components = sender_str.split('<br>')
             return {
                 :id => kolliid,
-                :sender => object['origLocation'],
+                :sender => {
+                    :name => sender_components[0],
+                    :address_string => sender_components.join('\n'),
+                },
                 :service => 'FedEx',
                 :events => events.sort_by{|eln| eln[:date]}.reverse!
             }

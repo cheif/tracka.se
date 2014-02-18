@@ -46,7 +46,7 @@
           %ul#oldsearches.nav.nav-tabs.nav-stacked
             %li{:'ng-repeat' => 'search in searches'}
               %a{:href => "#/detail/{{search.id}}", :class => "{{search.service | lowercase}}"}
-                {{search.id}}
+                {{search.sender.name}} ({{search.id}})
         .span6{:'ng-view' => ''}
     .navbar.navbar-fixed-bottom
       .navbar-inner

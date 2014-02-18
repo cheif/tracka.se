@@ -11,7 +11,7 @@ app = angular.module('tracking', []).
         return {
             addSearch: (search) ->
                 if searches.filter((eln)-> return eln.id == search.id).length == 0
-                    searches.push {id: search.id, service: search.service}
+                    searches.push {id: search.id, sender: search.sender, service: search.service}
                     localStorage.searches = JSON.stringify(searches)
             getSearches: ->
                 return searches

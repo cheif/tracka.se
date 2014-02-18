@@ -4,9 +4,11 @@
       Paket: {{detailData.id}}
   .row
     .span3
-      Avsändare: {{detailData.sender}}
+      %b Avsändare: 
+      {{detailData.sender.name}}
     .span3
-      Mottagare: {{detailData.reciever}}
+      %b Mottagare: 
+      {{detailData.reciever}}
   %table#events.table
     %thead
       %tr
